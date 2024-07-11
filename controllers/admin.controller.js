@@ -97,7 +97,9 @@ const AdminController = {
     createStaff: async(req, res) => {
         const session = await startSession()
         try {
-            const existingStaff = await Staff.findOne({ userId: req.body.staffId })
+            session.startTransaction()
+
+            const existingStaff = await Staff.findOne({ staffId: req.body.staffId })
 
             if (existingStaff) {
                 return res.status(400).json({ info: 'Duplicate user', message: 'A staff with this ID already exists.' })
@@ -131,8 +133,6 @@ const AdminController = {
             if (existingUser) {
                 return res.status(400).json({ info: 'Duplicate user', message: 'A staff with this username already exists.' })
             }
-
-            session.startTransaction()
 
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
 
