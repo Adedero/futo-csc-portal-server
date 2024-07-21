@@ -138,7 +138,7 @@ const StaffController = {
                 session: req.body.session,
                 semester: req.body.semester,
                 level: req.body.level,
-                course: req.body.course,
+                'course.code': req.body.course.code,
             })
 
             if(existingResult) {

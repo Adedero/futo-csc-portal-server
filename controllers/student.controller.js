@@ -236,7 +236,7 @@ const StudentController = {
         console.log(level)
         try {
             const courses = await Course.find({ level: level, semester: semester })
-            if (!courses) {
+            if (!courses.length) {
                 return res.status(404).json({ info: 'Not found', message: 'Cannot find any courses for this level' })
             }
             return res.status(200).json(courses)
